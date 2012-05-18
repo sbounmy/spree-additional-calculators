@@ -3,18 +3,18 @@ require 'spec_helper'
 describe Spree::AdditionalCalculator::WeightAndQuantity do
   before(:all) do
     # @shipping_method = Factory(:shipping_method)
-    @calculator = Factory(:weight_and_quantity_calculator)
+    @calculator = FactoryGirl.create(:weight_and_quantity_calculator)
   end
 
   before(:each) do
-    @weight_rate1 = Factory.build(:additional_calculator_rate_for_weight, :from_value => 0, :to_value => 100, :rate => 100)
-    @weight_rate2 = Factory.build(:additional_calculator_rate_for_weight, :from_value => 100.1, :to_value => 500, :rate => 500)
-    @qnty_rate1 = Factory.build(:additional_calculator_rate_for_qnty, :from_value => 1, :to_value => 10, :rate => 10)
-    @qnty_rate2 = Factory.build(:additional_calculator_rate_for_qnty, :from_value => 11, :to_value => 20, :rate => 20)
-    @qnty_rate3 = Factory.build(:additional_calculator_rate_for_qnty, :from_value => 21, :to_value => 50, :rate => 50)
-    @empty_order = Factory(:order)
-    @order_with_one_item = Factory(:order_with_one_item).reload
-    @order_with_items_without_weight = Factory(:order_with_items_without_weight).reload
+    @weight_rate1 = FactoryGirl.build(:additional_calculator_rate_for_weight, :from_value => 0, :to_value => 100, :rate => 100)
+    @weight_rate2 = FactoryGirl.build(:additional_calculator_rate_for_weight, :from_value => 100.1, :to_value => 500, :rate => 500)
+    @qnty_rate1 = FactoryGirl.build(:additional_calculator_rate_for_qnty, :from_value => 1, :to_value => 10, :rate => 10)
+    @qnty_rate2 = FactoryGirl.build(:additional_calculator_rate_for_qnty, :from_value => 11, :to_value => 20, :rate => 20)
+    @qnty_rate3 = FactoryGirl.build(:additional_calculator_rate_for_qnty, :from_value => 21, :to_value => 50, :rate => 50)
+    @empty_order = FactoryGirl.create(:order)
+    @order_with_one_item = FactoryGirl.create(:order_with_one_item).reload
+    @order_with_items_without_weight = FactoryGirl.create(:order_with_items_without_weight).reload
   end
 
 
@@ -137,7 +137,7 @@ describe Spree::AdditionalCalculator::WeightAndQuantity do
 
     context "items with specific weight" do
       before(:each) do
-        @order = Factory(:order_with_one_item).reload
+        @order = FactoryGirl.create(:order_with_one_item).reload
       end
 
       it "should calculate correct rate for 1 item with weight 0" do
@@ -221,8 +221,8 @@ describe Spree::AdditionalCalculator::WeightAndQuantity do
       @qnty_rate1.save!
       @qnty_rate2.save!
       @qnty_rate3.save!
-      @order1 = Factory(:order_with_one_item).reload
-      @order2 = Factory(:order_with_two_items).reload
+      @order1 = FactoryGirl.create(:order_with_one_item).reload
+      @order2 = FactoryGirl.create(:order_with_two_items).reload
     end
 
     it "should calculate correct rate for weight 10 and quantity 1" do

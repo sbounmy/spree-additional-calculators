@@ -4,8 +4,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 
-require 'factory_girl'
-# require 'spree/core/testing_support/factories'
+# require 'factory_girl'
+require 'spree/core/testing_support/factories'
 require 'factories'
 
 # Requires supporting files with custom matchers and macros, etc,

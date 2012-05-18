@@ -3,13 +3,12 @@ require 'spec_helper'
 module Spree
   describe AdditionalCalculatorRate do
     before(:all) do
-      # @shipping_method = Factory(:shipping_method)
-      @calculator = Factory(:weight_and_quantity_calculator)
+      @calculator = FactoryGirl.create(:weight_and_quantity_calculator)
     end
 
     before(:each) do
-      @rate = Factory.build(:additional_calculator_rate_for_weight, :from_value => 0, :to_value => 100, :rate => 100)
-      @rate2 = Factory.build(:additional_calculator_rate_for_weight, :from_value => 100.1, :to_value => 500, :rate => 500)
+      @rate = FactoryGirl.build(:additional_calculator_rate_for_weight, :from_value => 0, :to_value => 100, :rate => 100)
+      @rate2 = FactoryGirl.build(:additional_calculator_rate_for_weight, :from_value => 100.1, :to_value => 500, :rate => 500)
     end
 
 
