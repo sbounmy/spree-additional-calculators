@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe AdditionalCalculator::WeightAndQuantity do
+describe Spree::AdditionalCalculator::WeightAndQuantity do
   before(:all) do
-    @shipping_method = Factory(:shipping_method)
+    # @shipping_method = Factory(:shipping_method)
     @calculator = Factory(:weight_and_quantity_calculator)
   end
 
@@ -13,8 +13,8 @@ describe AdditionalCalculator::WeightAndQuantity do
     @qnty_rate2 = Factory.build(:additional_calculator_rate_for_qnty, :from_value => 11, :to_value => 20, :rate => 20)
     @qnty_rate3 = Factory.build(:additional_calculator_rate_for_qnty, :from_value => 21, :to_value => 50, :rate => 50)
     @empty_order = Factory(:order)
-    @order_with_one_item = Factory(:order_with_one_item)
-    @order_with_items_without_weight = Factory(:order_with_items_without_weight)
+    @order_with_one_item = Factory(:order_with_one_item).reload
+    @order_with_items_without_weight = Factory(:order_with_items_without_weight).reload
   end
 
 
@@ -137,7 +137,7 @@ describe AdditionalCalculator::WeightAndQuantity do
 
     context "items with specific weight" do
       before(:each) do
-        @order = Factory(:order_with_one_item)
+        @order = Factory(:order_with_one_item).reload
       end
 
       it "should calculate correct rate for 1 item with weight 0" do
@@ -221,8 +221,8 @@ describe AdditionalCalculator::WeightAndQuantity do
       @qnty_rate1.save!
       @qnty_rate2.save!
       @qnty_rate3.save!
-      @order1 = Factory(:order_with_one_item)
-      @order2 = Factory(:order_with_two_items)
+      @order1 = Factory(:order_with_one_item).reload
+      @order2 = Factory(:order_with_two_items).reload
     end
 
     it "should calculate correct rate for weight 10 and quantity 1" do

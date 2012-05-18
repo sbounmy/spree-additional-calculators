@@ -9,17 +9,17 @@ Factory.sequence(:product_sequence) {|n| "Product ##{n} - #{rand(9999)}"}
 # -------------------------------------- shipping_method --------------------------------------
 
 
-Factory.define :shipping_method do |f|
+Factory.define :shipping_method, :class => Spree::ShippingMethod do |f|
   f.name 'Test Shipping Method'
-  f.zone { Zone.first }
+  f.zone { Spree::Zone.first }
 end
 
 
 # -------------------------------------- calculators --------------------------------------
 
 
-Factory.define :weight_and_quantity_calculator, :class => AdditionalCalculator::WeightAndQuantity do |f|
-  f.calculable { ShippingMethod.first }
+Factory.define :weight_and_quantity_calculator, :class => Spree::AdditionalCalculator::WeightAndQuantity do |f|
+  f.calculable { Spree::ShippingMethod.first }
   f.is_additional_calculator true
 end
 
@@ -27,24 +27,24 @@ end
 # -------------------------------------- additional_calculator_rate --------------------------------------
 
 
-Factory.define :additional_calculator_rate_for_weight, :class => AdditionalCalculatorRate,  do |f|
-  f.calculator { Calculator.where(:is_additional_calculator => true).order(:id).last }
+Factory.define :additional_calculator_rate_for_weight, :class => Spree::AdditionalCalculatorRate do |f|
+  f.calculator { Spree::Calculator.where(:is_additional_calculator => true).order(:id).last }
   f.calculator_type 'Calculator'
-  f.rate_type AdditionalCalculatorRate::WEIGHT
+  f.rate_type Spree::AdditionalCalculatorRate::WEIGHT
 end
 
 
-Factory.define :additional_calculator_rate_for_qnty, :class => AdditionalCalculatorRate,  do |f|
-  f.calculator { Calculator.where(:is_additional_calculator => true).order(:id).last }
+Factory.define :additional_calculator_rate_for_qnty, :class => Spree::AdditionalCalculatorRate do |f|
+  f.calculator { Spree::Calculator.where(:is_additional_calculator => true).order(:id).last }
   f.calculator_type 'Calculator'
-  f.rate_type AdditionalCalculatorRate::QNTY
+  f.rate_type Spree::AdditionalCalculatorRate::QNTY
 end
 
 
 # -------------------------------------- orders --------------------------------------
 
 
-Factory.define :order do |f|
+Factory.define :order, :class => Spree::Order do |f|
   f.association(:user, :factory => :user)
   f.association(:bill_address, :factory => :address)
   f.completed_at nil
@@ -72,7 +72,7 @@ end
 # -------------------------------------- line_items --------------------------------------
 
 
-Factory.define(:line_item) do |f|
+Factory.define(:line_item, :class => Spree::LineItem) do |f|
   f.quantity 1
   f.price { BigDecimal.new("10.00") }
 
@@ -91,7 +91,7 @@ end
 # -------------------------------------- variants --------------------------------------
 
 
-Factory.define(:variant) do |f|
+Factory.define(:variant, :class => Spree::Variant) do |f|
   f.price 19.99
   f.cost_price 17.00
   f.sku { Factory.next(:sku_sequence) }
@@ -114,7 +114,7 @@ end
 # -------------------------------------- products --------------------------------------
 
 
-Factory.define :product do |f|
+Factory.define :product, :class => Spree::Product do |f|
   f.name { Factory.next(:product_sequence) }
   f.description {|p| p.name }
 
@@ -133,7 +133,7 @@ end
 # -------------------------------------- users --------------------------------------
 
 
-Factory.define(:user) do |f|
+Factory.define(:user, :class => Spree::User) do |f|
   f.email { Factory.next(:email_sequence) }
   f.password 'password'
   f.password_confirmation 'password'
@@ -143,7 +143,7 @@ end
 # -------------------------------------- addresses --------------------------------------
 
 
-Factory.define :address do |f|
+Factory.define :address, :class => Spree::Address do |f|
   f.firstname 'John'
   f.lastname 'Doe'
   f.address1 '10 Lovely Street'
@@ -167,14 +167,23 @@ end
 # -------------------------------------- states --------------------------------------
 
 
-Factory.define :state do |f|
+Factory.define :state, :class => Spree::State do |f|
   f.name 'ALABAMA'
   f.abbr 'AL'
   f.country do |country|
-    if usa = Country.find_by_numcode(840)
+    if usa = Spree::Country.find_by_numcode(840)
       country = usa
     else
       country.association(:country)
     end
   end
+end
+
+
+Factory.define :country, :class => Spree::Country do |f|
+  f.iso_name 'UNITED STATES'
+  f.name 'United States of Foo'
+  f.iso 'US'
+  f.iso3 'USA'
+  f.numcode 840
 end
