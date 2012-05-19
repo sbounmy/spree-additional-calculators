@@ -1,4 +1,4 @@
-Additional Spree Calculators
+Additional Spree Calculators[![Build Status](https://secure.travis-ci.org/sbounmy/spree-additional-calculators.png?branch=master)](http://travis-ci.org/sbounmy/spree-additional-calculators)
 ============================
 
 This gem contains additional calculators for [Spree Commerce](http://spreecommerce.com)
