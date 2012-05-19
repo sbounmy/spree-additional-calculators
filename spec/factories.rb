@@ -4,7 +4,7 @@ FactoryGirl.define do
 
 
   factory :weight_and_quantity_calculator, :class => Spree::AdditionalCalculator::WeightAndQuantity do
-    calculable { Spree::ShippingMethod.first }
+    association(:calculable, :factory => :shipping_method)
     is_additional_calculator true
   end
 
@@ -14,14 +14,12 @@ FactoryGirl.define do
 
   factory :additional_calculator_rate_for_weight, :class => Spree::AdditionalCalculatorRate do
     calculator { Spree::Calculator.where(:is_additional_calculator => true).order(:id).last }
-    calculator_type 'Calculator'
     rate_type Spree::AdditionalCalculatorRate::WEIGHT
   end
 
 
   factory :additional_calculator_rate_for_qnty, :class => Spree::AdditionalCalculatorRate do
     calculator { Spree::Calculator.where(:is_additional_calculator => true).order(:id).last }
-    calculator_type 'Calculator'
     rate_type Spree::AdditionalCalculatorRate::QNTY
   end
 
