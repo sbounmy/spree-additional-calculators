@@ -1,13 +1,14 @@
 module Spree
   class AdditionalCalculator::Base < Calculator
     has_many :additional_calculator_rates,
-             :as => :calculator,
+             :foreign_key => "calculator_id",
              :dependent => :destroy
 
     accepts_nested_attributes_for :additional_calculator_rates,
                                   :allow_destroy => true,
                                   :reject_if => lambda {|attr| attr[:from_value].blank? && attr[:to_value].blank? && attr[:rate].blank?}
 
+    attr_accessible :additional_calculator_rates_attributes
     before_save :set_is_additional_calculator
 
     # Register the calculator

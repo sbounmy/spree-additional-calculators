@@ -7,6 +7,8 @@ module Spree
 
     belongs_to :calculator
 
+    attr_accessible :rate_type, :from_value, :to_value, :rate
+
     scope :for_type, lambda {|type| where(:rate_type => type) }
     scope :for_calculator, lambda {|calculator_id| where(:calculator_id => calculator_id) }
     scope :for_value, lambda {|value| where("from_value <= ? AND ? <= to_value", value, value)}
