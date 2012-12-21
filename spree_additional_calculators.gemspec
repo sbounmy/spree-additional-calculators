@@ -15,9 +15,9 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 1.2.0'
+  s.add_dependency 'spree_core', '~> 1.3.0'
 
-  s.add_development_dependency 'spree_sample', '~> 1.2.0'
+  s.add_development_dependency 'spree_sample', '~> 1.3.0'
   s.add_development_dependency 'capybara', '1.0.1'
   s.add_development_dependency 'factory_girl_rails', '1.7.0'
   s.add_development_dependency 'ffaker'
